@@ -25,7 +25,7 @@ public class Main {
 
         System.out.println("Please select from the below choices.");
 
-
+        
 
 
     }
@@ -42,34 +42,33 @@ public class Main {
                 "Marley",
                 "6954343534",
                 LocalDate.now().plusDays(10),
-                "creditcard");
+                MethodOfPayment.cash);
 
         Contract contract1 = new Contract(services.get(1),
                 "John",
                 "Doe",
                 "6955432234",
                 LocalDate.now().plusDays(1),
-                "cash");
+                MethodOfPayment.bankTransfer);
 
         Contract contract2 = new Contract(services.get(2),
                 "Cloe",
                 "Williams",
                 "6955000031",
                 LocalDate.now().plusDays(2),
-                "cash");
+                MethodOfPayment.cash);
 
         Contract contract3 = new Contract(services.get(3),
                 "Petros",
                 "Papadopoulos",
                 "6955431114",
                 LocalDate.now(),
-                "cash");
+                MethodOfPayment.creditCard);
 
         contracts.add(contract);
         contracts.add(contract1);
         contracts.add(contract2);
         contracts.add(contract3);
-
     }
 
 

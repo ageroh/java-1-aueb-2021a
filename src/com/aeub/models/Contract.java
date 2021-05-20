@@ -16,7 +16,7 @@ public class Contract {
     private String lastName;
     private String mobilePhone;
     private LocalDate activation;
-    private String methodOfPayment;
+    private MethodOfPayment method;
 
     // statistics for each month, month is represented as 2019-Apr, 2021-May etc.
     private HashMap<String, Statistic> statistics;
@@ -27,14 +27,14 @@ public class Contract {
             String lastName,
             String mobilePhone,
             LocalDate activation,
-            String methodOfPayment) {
+            MethodOfPayment methodOfPayment) {
         this.code = generateNewCode();
         this.service = service;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobilePhone = mobilePhone;
         this.activation = activation;
-        this.methodOfPayment = methodOfPayment;
+        this.method = methodOfPayment;
         statistics = new HashMap<>();
     }
 
