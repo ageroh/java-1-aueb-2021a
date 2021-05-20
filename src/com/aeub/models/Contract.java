@@ -1,13 +1,11 @@
 package com.aeub.models;
 
-import com.aeub.Main;
+import com.aeub.Application;
 import com.aeub.models.services.TelecomService;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Contract {
     private int code;
@@ -57,7 +55,10 @@ public class Contract {
 
     // not thread safe
     private int generateNewCode(){
-        return Main.contracts.get(Main.contracts.size() - 1).getCode() + 1;
+        if(Application.contracts.size() == 0) {
+            return 1;
+        }
+        return Application.contracts.get(Application.contracts.size() - 1).getCode() + 1;
     }
 
     // Τα στατιστικά χρήσης για κάθε συμβόλαιο είναι αντίστοιχα με το πρόγραμμα του συμβολαίου.
