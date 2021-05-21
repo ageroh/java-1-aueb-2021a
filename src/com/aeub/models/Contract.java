@@ -49,7 +49,7 @@ public class Contract {
         }
     }
 
-    private int getCode(){
+    public int getCode(){
         return this.code;
     }
 
