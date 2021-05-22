@@ -1,26 +1,29 @@
 package com.aeub.models.services;
 
-public class ContractService extends MobileTelephonyService {
-
+public final class ContractService extends MobileTelephonyService {
     public ContractService() {
-        this.discountPercentage = 0.2;
-        this.freeSMS = 100;
-        this.freeSpeechMinutes = 120;
-        this.smsCost = 0.003;
-        this.speechCostPerMinute = 0.02;
     }
 
     public ContractService(
+            String nameOfService,
+            int monthlyFlatFee,
             double discountPercentage,
             int freeSMS,
             int freeSpeechMinutes,
             double smsCost,
             double speechCostPerMinute) {
-        this.discountPercentage = discountPercentage;
+        this.nameOfService = nameOfService;
+        this.monthlyFlatFee = monthlyFlatFee;
+        this.discountPercentage = discountPercentage;   // 0.2
         this.freeSMS = freeSMS;
         this.freeSpeechMinutes = freeSpeechMinutes;
         this.smsCost = smsCost;
         this.speechCostPerMinute = speechCostPerMinute;
     }
 
+    @Override
+    public void print() {
+        System.out.println("\tContract Service Details");
+        // todo
+    }
 }

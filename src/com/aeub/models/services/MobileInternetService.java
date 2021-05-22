@@ -1,12 +1,28 @@
 package com.aeub.models.services;
 
-public class MobileInternetService extends TelecomService {
+public final class MobileInternetService extends TelecomService {
     private int freeGigabytesForData;
-    private int costPerGigabyteOfData;
+    private double costPerGigabyteOfData;
 
-    public MobileInternetService(int freeGigabytesForData, int costPerGigabyteOfData) {
+    public MobileInternetService() {
+    }
+
+    public MobileInternetService(
+            String nameOfService,
+            int monthlyFlatFee,
+            int freeGigabytesForData,
+            double costPerGigabyteOfData,
+            double discountPercentage) {
         this.freeGigabytesForData = freeGigabytesForData;
         this.costPerGigabyteOfData = costPerGigabyteOfData;
-        this.discountPercentage = 0.3;
+        this.discountPercentage = discountPercentage; //0.3;
+        this.nameOfService = nameOfService;
+        this.monthlyFlatFee = monthlyFlatFee;
+    }
+
+    @Override
+    public void print() {
+        System.out.println("\tMobile Internet Service Details");
+        // todo
     }
 }

@@ -1,4 +1,4 @@
-package com.aeub.models;
+package com.aeub.models.contracts;
 
 public class Statistic {
     private int speechTimeToMobileNetworks;
@@ -38,10 +38,11 @@ public class Statistic {
         return megabytesOfDataTransmitted;
     }
 
-    public void append(Statistic statistic) {
+    public Statistic append(Statistic statistic) {
         speechTimeToMobileNetworks =+ statistic.speechTimeToMobileNetworks;
         speechTimeToOtherNetworks =+ statistic.speechTimeToOtherNetworks;
         numberOfSmsSent =+ statistic.numberOfSmsSent;
         megabytesOfDataTransmitted =+ statistic.megabytesOfDataTransmitted;
+        return this;
     }
 }

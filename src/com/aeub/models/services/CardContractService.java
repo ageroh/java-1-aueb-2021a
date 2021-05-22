@@ -1,6 +1,6 @@
 package com.aeub.models.services;
 
-public class CardContractService extends MobileTelephonyService {
+public final class CardContractService extends MobileTelephonyService {
 
     private int monthlyBalanceEuros;
 
@@ -12,26 +12,31 @@ public class CardContractService extends MobileTelephonyService {
         this.monthlyBalanceEuros = monthlyBalanceEuros;
     }
 
-    public CardContractService(int monthlyBalanceEuros) {
-        this.monthlyBalanceEuros = monthlyBalanceEuros;
-        this.discountPercentage = 0.25;
-        this.freeSMS = 100;
-        this.freeSpeechMinutes = 100;
-        this.smsCost = 0.005;
-        this.speechCostPerMinute = 0.01;
+    public CardContractService() {
     }
 
     public CardContractService(
+            String nameOfService,
+            int monthlyFlatFee,
             int monthlyBalanceEuros,
+            double discountPercentage,
             int freeSMS,
             int freeSpeechMinutes,
             double smsCost,
             double speechCostPerMinute) {
+        this.nameOfService = nameOfService;
+        this.monthlyFlatFee = monthlyFlatFee;
         this.monthlyBalanceEuros = monthlyBalanceEuros;
-        this.discountPercentage = 0.25;
+        this.discountPercentage = discountPercentage; // 0.25;
         this.freeSMS = freeSMS;
         this.freeSpeechMinutes = freeSpeechMinutes;
         this.smsCost = smsCost;
         this.speechCostPerMinute = speechCostPerMinute;
+    }
+
+    @Override
+    public void print() {
+        System.out.println("\tCard Contract Service Details");
+        // todo
     }
 }
