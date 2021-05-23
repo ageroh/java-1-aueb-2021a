@@ -1,9 +1,9 @@
-package com.aeub.models.contracts;
+package com.aeub.contracts;
 
-import com.aeub.models.services.CardContractService;
-import com.aeub.models.services.ContractService;
-import com.aeub.models.services.MobileInternetService;
-import com.aeub.models.services.TelecomService;
+import com.aeub.services.CardContractService;
+import com.aeub.services.ContractService;
+import com.aeub.services.MobileInternetService;
+import com.aeub.services.TelecomService;
 import com.google.common.base.CharMatcher;
 
 import java.time.LocalDate;
@@ -88,6 +88,7 @@ public class ContractBuilder {
         return this;
     }
 
+    // todo remove this one.
     private TelecomService resolveServiceByType(int selection) {
         switch (selection){
             case 0: return new ContractService();

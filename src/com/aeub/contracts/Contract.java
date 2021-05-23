@@ -1,6 +1,7 @@
-package com.aeub.models.contracts;
+package com.aeub.contracts;
 
-import com.aeub.models.services.TelecomService;
+import com.aeub.services.MobileTelephonyService;
+import com.aeub.services.TelecomService;
 import com.aeub.telecomapp.Application;
 
 import java.time.LocalDate;
@@ -47,8 +48,12 @@ public class Contract {
         statistics = new HashMap<>();
     }
 
-    public void addOrUpdateStatic(LocalDate date, Statistic statistic) {
-        String key = date.format(DateTimeFormatter.ofPattern("yyyy-MMM"));
+    private String currentStatisticKey() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MMM"));
+    }
+
+    public void addOrUpdateStaticForCurrentMonth(Statistic statistic) {
+        String key = currentStatisticKey();
         if (statistics.containsKey(key)) {
             statistics.put(key, statistics.get(key).append(statistic));
         } else {
@@ -79,18 +84,69 @@ public class Contract {
         System.out.println("Mobile Phone: " + mobilePhone);
         System.out.println("Active Date: " + activation);
         System.out.println("Method of Payment: " + method.toString());
-        System.out.println();
         service.print();
-        printStatistics();
+        printStatisticsForCurrentMonth();
     }
 
-    private void printStatistics() {
+    private void printStatisticsForCurrentMonth() {
         System.out.println("\tStatistics");
-
+        statistics.getOrDefault(currentStatisticKey(), Statistic.Empty).print();
     }
 
     public boolean isActive() {
         return activation.isAfter(LocalDate.now());
+    }
+
+    public double calculateTotalMonthlyCost() {
+        //double balance = this.service.getMonthlyBalanceInEuros();
+        double flatFee = this.service.getMonthlyFlatFee()
+        double discountPercent = this.service.getDiscountPercentage();
+        double flatFeeWithDiscount = flatFee * (1 - discountPercent);
+        Statistic statistic = statistics.getOrDefault(currentStatisticKey(), Statistic.Empty);
+        if(statistic == null){
+            return 0.0;
+        }
+        long megabytesOfDataTransmitted = statistic.getMegabytesOfDataTransmitted();
+        int smsSent = statistic.getNumberOfSmsSent();
+        int minutesSpeechMobile = statistic.getSpeechTimeToMobileNetworks();
+        int minutesSpeechOther =statistic.getSpeechTimeToMobileNetworks();
+
+        if(this.service instanceof MobileTelephonyService) {
+            MobileTelephonyService mobileTelephonyService = ((MobileTelephonyService)this.service);
+            double smsCost = mobileTelephonyService.getSmsCost();
+            int numberOfFreeSms = mobileTelephonyService.getFreeSMS();
+            int freeSpeechMinutes = mobileTelephonyService.getFreeSpeechMinutes();
+            double speechCostPerMinute = mobileTelephonyService.getSpeechCostPerMinute();
+
+            double smsCostSent = 0;
+            if(numberOfFreeSms - smsSent < 0) {
+               smsCostSent = Math.abs(numberOfFreeSms - smsSent) * smsCost
+            }
+
+            double speechCostTotal = 0;
+            if(freeSpeechMinutes - (minutesSpeechMobile + minutesSpeechOther) < 0){
+                speechCostTotal = Math.abs(freeSpeechMinutes - (minutesSpeechMobile + minutesSpeechOther)) * speechCostPerMinute;
+            }
+            return smsCostSent + speechCostTotal;
+        }
+        return 0.0;
+    }
+
+    // todo
+    public double calculateRemainingBalance() {
+        return 0;
+    }
+
+    public int calculateRemainingFreeSpeech() {
+        return 0;
+    }
+
+    public int calculateRemainingFreeSms() {
+        return 0;
+    }
+
+    public int calculateRemainingData() {
+        return 0;
     }
 
     // ta statistica xrisis gia ka0e contract einai antistoixa me to programma tou sumbolaiou

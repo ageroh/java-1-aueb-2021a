@@ -1,12 +1,13 @@
 package com.aeub.telecomapp;
 
-import com.aeub.models.contracts.Contract;
-import com.aeub.models.contracts.ContractBuilder;
-import com.aeub.models.contracts.MethodOfPayment;
-import com.aeub.models.services.CardContractService;
-import com.aeub.models.services.ContractService;
-import com.aeub.models.services.MobileInternetService;
-import com.aeub.models.services.TelecomService;
+import com.aeub.contracts.Contract;
+import com.aeub.contracts.ContractBuilder;
+import com.aeub.contracts.MethodOfPayment;
+import com.aeub.contracts.Statistic;
+import com.aeub.services.CardContractService;
+import com.aeub.services.ContractService;
+import com.aeub.services.MobileInternetService;
+import com.aeub.services.TelecomService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -40,6 +41,37 @@ public class Application {
                         contractTypeId = menu.selectContractType(in);
                         printActiveContracts(contractTypeId);
                         break;
+                    case Menu.UPDATE_STATISTICS:
+                        printActiveContracts();
+                        Contract contract = getContract(menu, in);
+                        Statistic statistic = menu.gatherStatisticData(in);
+                        contract.addOrUpdateStaticForCurrentMonth(statistic);
+                        System.out.println("Statistics updated for contract code: " + contract.getCode());
+                        System.out.println();
+                        menu.print();
+                        break;
+                    case Menu.CALCULATE_AND_PRINT_TOTAL_MONTHLY_COST:
+                        contract = getContract(menu, in);
+                        double cost = contract.calculateTotalMonthlyCost();
+                        System.out.println("Monthly total cost for contract code:" + contract.getCode() + " is:" + cost);
+                        break;
+                    case Menu.CALCULATE_AND_PRINT_REMAINING_BALANCE:
+                        contract = getContract(menu, in);
+                        cost = contract.calculateRemainingBalance();
+                        System.out.println("Monthly total cost for contract code:" + contract.getCode() + " is:" + cost);
+                        break;
+                    case Menu.CALCULATE_AND_PRINT_REMAINING_FREE_SPEECH_AND_FREE_SMS:
+                        contract = getContract(menu, in);
+                        int remainingFreeSpeechMinutes = contract.calculateRemainingFreeSpeech();
+                        int remainingFreeSms = contract.calculateRemainingFreeSms();
+                        System.out.println("Remaining Free minutes to speak:" + remainingFreeSpeechMinutes);
+                        System.out.println("Remaining Free SMS:" + remainingFreeSms);
+                        break;
+                    case Menu.CALCULATE_AND_PRINT_REMAINING_DATA:
+                        contract = getContract(menu, in);
+                        int remainingFreeData = contract.calculateRemainingData();
+                        System.out.println("Remaining Mobile Data:" + remainingFreeData);
+                        break;
                     case Menu.EXIT:
                         if (menu.confirmExit(in)) return;
                         break;
@@ -52,6 +84,13 @@ public class Application {
         }
     }
 
+    private static Contract getContract(Menu menu, Scanner in) {
+        int code = menu.trySelectContractCode(in);
+        Contract contract = contracts.stream().filter(z -> z.getCode() == code).findFirst().get();
+        return contract;
+    }
+
+    // todo move this in a contracts class
     private static void printActiveContracts(int contractTypeId) {
         contracts.stream()
             .filter(z -> z.getTelecomService().getServiceId() == contractTypeId)
@@ -59,6 +98,14 @@ public class Application {
             .forEach(c -> c.print());
     }
 
+    // todo move this in a contracts class
+    private static void printActiveContracts() {
+        contracts.stream()
+                .filter(z -> z.isActive())
+                .forEach(c -> c.print());
+    }
+
+    // todo move this to a ContractFactory and inject ContractBuilder.
     private static int createNewContract(int contractTypeId, Scanner in) {
         ContractBuilder cb = new ContractBuilder();
 
@@ -80,6 +127,7 @@ public class Application {
         initializeContracts();
     }
 
+    // todo let those be provided by ContractFactory
     private static void initializeContracts() {
         contracts.add(new Contract(
                 availableServices.get("C100"),
@@ -114,6 +162,7 @@ public class Application {
                 MethodOfPayment.CREDIT_CARD));
     }
 
+    // todo let those be provided by TelecomServicesFactory
     private static void initializeServices() {
         availableServices.put("C100",
                 new ContractService(

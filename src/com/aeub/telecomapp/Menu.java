@@ -1,5 +1,7 @@
 package com.aeub.telecomapp;
 
+import com.aeub.contracts.Statistic;
+
 import java.util.Scanner;
 
 import static com.aeub.telecomapp.Utils.tryLoop;
@@ -9,16 +11,22 @@ public class Menu {
     public static final int EXIT = 0;
     public static final int NEW_CONTRACT = 2;
     public static final int PRINT_ACTIVE = 3;
+    public static final int UPDATE_STATISTICS = 4;
+    public static final int CALCULATE_AND_PRINT_TOTAL_MONTHLY_COST = 5;
+    public static final int CALCULATE_AND_PRINT_REMAINING_BALANCE = 6;
+    public static final int CALCULATE_AND_PRINT_REMAINING_FREE_SPEECH_AND_FREE_SMS = 7;
+    public static final int CALCULATE_AND_PRINT_REMAINING_DATA = 8;
 
     public void print() {
         System.out.println("Please select from the below choices.");
-        System.out.println();
         System.out.println("1 - Prints this menu");
         System.out.println("2 - Create new Contract");
         System.out.println("3 - Show active contracts for a specific service");
         System.out.println("4 - Update statistics of a contract");
-        System.out.println("5 - Calculate total monthly costs for all... ");
-        System.out.println("6 - Calculate remaining free speech time...");
+        System.out.println("5 - Calculate and print total monthly Cost");
+        System.out.println("6 - Calculate and print total remaining Balance");
+        System.out.println("7 - Calculate and print remaining free SMS/speech.");
+        System.out.println("8 - Calculate and print total remaining Data");
         System.out.println("q - Exit application.");
     }
 
@@ -51,10 +59,31 @@ public class Menu {
         }
     }
 
+    public int tryGetPositiveInteger(Scanner in, String message, String errorMessage) {
+        return tryLoop(() -> {
+            System.out.print(message);
+            String intStr = in.nextLine();
+            int number = Integer.parseInt(intStr);
+            if (number < 0) throw new Exception();
+            return number;
+        }, errorMessage);
+    }
+
+    public long tryGetPositiveLong(Scanner in, String message, String errorMessage) {
+        return tryLoop(() -> {
+            System.out.print(message);
+            String longStr = in.nextLine();
+            long number = Long.parseLong(longStr);
+            if (number < 0) throw new Exception();
+            return number;
+        }, errorMessage);
+    }
+
     public void welcome() {
         System.out.println("Welcome to Java Ufo Telecom Inc. ");
         System.out.println();
         System.out.println("Initializing services and contracts...");
+        System.out.println();
     }
 
     public int selectContractType(Scanner in) {
@@ -65,11 +94,33 @@ public class Menu {
             System.out.println("  2 - Mobile Internet");
             String selection = in.nextLine();
             int selectionId = Integer.parseInt(selection);
-            if(selectionId < 0 || selectionId > 2) {
+            if (selectionId < 0 || selectionId > 2) {
                 throw new Exception();
             }
             return selectionId;
         }, "Must select a type from 0, 1 or 2.");
         return contractType;
+    }
+
+    public int trySelectContractCode(Scanner in) {
+        int contractCode = tryLoop(() -> {
+            System.out.print("Select the code of contract to update statistics:");
+            String selection = in.nextLine();
+            int code = Integer.parseInt(selection);
+            if (Application.contracts.stream().anyMatch(z -> z.getCode() == code)) {
+                return code;
+            }
+            throw new Exception();
+        }, "Must select an existing contract.");
+        return contractCode;
+    }
+
+    public Statistic gatherStatisticData(Scanner in) {
+        Statistic statistic = new Statistic(
+                tryGetPositiveInteger(in, "Enter Speech time to Mobile Networks in minutes:", "Please enter a positive number."),
+                tryGetPositiveInteger(in, "Enter Speech time to Other Networks in minutes:", "Please enter a positive number."),
+                tryGetPositiveInteger(in, "Enter of SMS sent:", "Please enter a positive number."),
+                tryGetPositiveLong(in, "Enter megabytes of Data usage:", "Please enter a positive number."));
+        return statistic;
     }
 }

@@ -1,7 +1,5 @@
 package com.aeub.telecomapp;
 
-import com.aeub.models.contracts.ContractBuilder;
-
 public class Utils {
     public static <T extends Object> T tryLoop(Callable<T> tryScanFunc, String errorMessage) {
         while(true){
