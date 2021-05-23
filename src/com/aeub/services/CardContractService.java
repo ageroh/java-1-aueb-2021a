@@ -28,8 +28,13 @@ public final class CardContractService extends MobileTelephonyService {
 
     @Override
     public void print() {
-        System.out.println("\tCard Contract Service Details");
-        // todo
+        super.print();
+        System.out.println("\tMonthly Balance Euros :" + monthlyBalanceEuros);
+        System.out.println("\tFree Number of SMS    :" + freeSMS);
+        System.out.println("\tFree Speech Minutes   :" + freeSpeechMinutes);
+        System.out.println("\tCost per SMS          :" + smsCost);
+        System.out.println("\tSpeech Cost / Minute  :" + speechCostPerMinute);
+        System.out.println();
     }
 
 }

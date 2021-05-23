@@ -23,7 +23,12 @@ public final class ContractService extends MobileTelephonyService {
 
     @Override
     public void print() {
-        System.out.println("\tContract Service Details");
-        // todo
+        super.print();
+        System.out.println("\tFree Number of SMS    :" + freeSMS);
+        System.out.println("\tFree Speech Minutes   :" + freeSpeechMinutes);
+        System.out.println("\tCost per SMS          :" + smsCost);
+        System.out.println("\tSpeech Cost / Minute  :" + speechCostPerMinute);
+        System.out.println();
     }
+
 }

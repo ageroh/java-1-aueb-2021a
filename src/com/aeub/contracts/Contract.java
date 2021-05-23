@@ -1,5 +1,6 @@
 package com.aeub.contracts;
 
+import com.aeub.services.MobileInternetService;
 import com.aeub.services.MobileTelephonyService;
 import com.aeub.services.TelecomService;
 import com.aeub.telecomapp.Application;
@@ -97,9 +98,9 @@ public class Contract {
         return activation.isAfter(LocalDate.now());
     }
 
+    // todo needs refactoring - place everything in right class.
     public double calculateTotalMonthlyCost() {
-        //double balance = this.service.getMonthlyBalanceInEuros();
-        double flatFee = this.service.getMonthlyFlatFee()
+        double flatFee = this.service.getMonthlyFlatFee();
         double discountPercent = this.service.getDiscountPercentage();
         double flatFeeWithDiscount = flatFee * (1 - discountPercent);
         Statistic statistic = statistics.getOrDefault(currentStatisticKey(), Statistic.Empty);
@@ -120,7 +121,7 @@ public class Contract {
 
             double smsCostSent = 0;
             if(numberOfFreeSms - smsSent < 0) {
-               smsCostSent = Math.abs(numberOfFreeSms - smsSent) * smsCost
+               smsCostSent = Math.abs(numberOfFreeSms - smsSent) * smsCost;
             }
 
             double speechCostTotal = 0;
@@ -129,10 +130,21 @@ public class Contract {
             }
             return smsCostSent + speechCostTotal;
         }
+        if(this.service instanceof MobileInternetService){
+            MobileInternetService mobileInternetService = ((MobileInternetService)this.service);
+            discountPercent = mobileInternetService.getDiscountPercentage();
+            int numberOfFreeMegabytes = mobileInternetService.getFreeMegabytesForData();
+            double costPerMegabyte = mobileInternetService.getCostPerMegabyteOfData();
+
+            double costOfData = 0.0;
+            if(numberOfFreeMegabytes - megabytesOfDataTransmitted < 0.0){
+                costOfData = Math.abs(numberOfFreeMegabytes - megabytesOfDataTransmitted) * costPerMegabyte;
+            }
+            return costOfData;
+        }
         return 0.0;
     }
 
-    // todo
     public double calculateRemainingBalance() {
         return 0;
     }

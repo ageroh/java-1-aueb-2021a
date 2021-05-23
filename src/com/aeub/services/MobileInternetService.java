@@ -4,6 +4,14 @@ public final class MobileInternetService extends TelecomService {
     private int freeMegabytesForData;
     private double costPerMegabyteOfData;
 
+    public int getFreeMegabytesForData() {
+        return freeMegabytesForData;
+    }
+
+    public double getCostPerMegabyteOfData() {
+        return costPerMegabyteOfData;
+    }
+
     public MobileInternetService() {
     }
 
@@ -22,7 +30,9 @@ public final class MobileInternetService extends TelecomService {
 
     @Override
     public void print() {
-        System.out.println("\tMobile Internet Service Details");
-        // todo
+        super.print();
+        System.out.println("\tNumber of Free MB     :" + freeMegabytesForData);
+        System.out.println("\tCost per MB of Data   :" + costPerMegabyteOfData);
+        System.out.println();
     }
 }
