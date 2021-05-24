@@ -36,9 +36,9 @@ public class Menu {
     }
 
     public boolean confirmExit(Scanner in) {
-        System.out.println("Are you sure(yes/no)? All the data will be lost!");
+        System.out.println("Are you sure(1. yes/2. no)? All the data will be lost!");
         String yesNo = in.next();
-        if (yesNo.equals("yes")) {
+        if (yesNo.equals("1")) {
             System.out.println("Application exited.\n\n");
             System.out.println();
             return true;
@@ -88,17 +88,17 @@ public class Menu {
 
     public int selectContractType(Scanner in) {
         int contractType = tryLoop(() -> {
-            System.out.println("Select a contract type (0,1,2):");
-            System.out.println("  0 - Card Contract");
-            System.out.println("  1 - Contract");
-            System.out.println("  2 - Mobile Internet");
+            System.out.println("Select a contract type (1,2,3):");
+            System.out.println("  1 - Card Contract");
+            System.out.println("  2 - Contract");
+            System.out.println("  3 - Mobile Internet");
             String selection = in.nextLine();
             int selectionId = Integer.parseInt(selection);
-            if (selectionId < 0 || selectionId > 2) {
+            if (selectionId <= 0 || selectionId > 2) {
                 throw new Exception();
             }
             return selectionId;
-        }, "Must select a type from 0, 1 or 2.");
+        }, "Must select a type from 1, 2 or 3.");
         return contractType;
     }
 
@@ -107,7 +107,7 @@ public class Menu {
             System.out.print("Select the code of contract to update statistics:");
             String selection = in.nextLine();
             int code = Integer.parseInt(selection);
-            if (Application.contracts.stream().anyMatch(z -> z.getCode() == code)) {
+            if (mainApp.contracts.stream().anyMatch(z -> z.getCode() == code)) {
                 return code;
             }
             throw new Exception();

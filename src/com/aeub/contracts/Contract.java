@@ -3,7 +3,7 @@ package com.aeub.contracts;
 import com.aeub.services.MobileInternetService;
 import com.aeub.services.MobileTelephonyService;
 import com.aeub.services.TelecomService;
-import com.aeub.telecomapp.Application;
+import com.aeub.telecomapp.mainApp;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -68,10 +68,10 @@ public class Contract {
 
     // not thread safe
     private int generateNewCode() {
-        if (Application.contracts.size() == 0) {
+        if (mainApp.contracts.size() == 0) {
             return 1;
         }
-        return Application.contracts.get(Application.contracts.size() - 1).getCode() + 1;
+        return mainApp.contracts.get(mainApp.contracts.size() - 1).getCode() + 1;
     }
 
     public TelecomService getTelecomService() {

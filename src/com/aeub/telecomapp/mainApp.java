@@ -15,7 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class Application {
+/**
+ * Team Number Id:
+ * @author Marios ... ()
+ * @author ...
+ * */
+public class mainApp {
     public static HashMap<String, TelecomService> availableServices = new HashMap<>();
     public static List<Contract> contracts = new ArrayList<>();
 

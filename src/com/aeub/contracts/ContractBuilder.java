@@ -80,20 +80,20 @@ public class ContractBuilder {
     public ContractBuilder addMethodOfPayment(Scanner in) {
         this.methodOfPayment = tryLoop(() -> {
             System.out.println("Pick a method of payment:");
-            System.out.println("0 - Cash");
-            System.out.println("1 - Credit Card");
-            System.out.println("2 - Bank Transfer");
+            System.out.println("1 - Cash");
+            System.out.println("2 - Credit Card");
+            System.out.println("3 - Bank Transfer");
             return  MethodOfPayment.values()[in.nextInt()];
-        }, "Pick one of 0,1 or 2");
+        }, "Pick one of 1,2 or 3");
         return this;
     }
 
     // todo remove this one.
     private TelecomService resolveServiceByType(int selection) {
         switch (selection){
-            case 0: return new ContractService();
-            case 1: return  new CardContractService();
-            case 2: return new MobileInternetService();
+            case 1: return new ContractService();
+            case 2: return  new CardContractService();
+            case 3: return new MobileInternetService();
             default: return null;
         }
     }

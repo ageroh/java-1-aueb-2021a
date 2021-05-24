@@ -1,9 +1,9 @@
 package com.aeub.contracts;
 
 public enum MethodOfPayment {
-    CASH("CASH", 0),
-    CREDIT_CARD("CREDIT CARD", 1),
-    BANK_TRANSFER("BANK TRANSFER", 2);
+    CASH("CASH", 1),
+    CREDIT_CARD("CREDIT CARD", 2),
+    BANK_TRANSFER("BANK TRANSFER", 3);
 
     private final int value;
     private final String name;
