@@ -1,13 +1,4 @@
-package com.aeub.telecomapp;
-
-import com.aeub.contracts.Contract;
-import com.aeub.contracts.ContractBuilder;
-import com.aeub.contracts.MethodOfPayment;
-import com.aeub.contracts.Statistic;
-import com.aeub.services.CardContractService;
-import com.aeub.services.ContractService;
-import com.aeub.services.MobileInternetService;
-import com.aeub.services.TelecomService;
+package com.aeub;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +9,7 @@ import java.util.Scanner;
 /**
  * Team Number Id:
  * @author Marios ... ()
- * @author ...
+ * @author .....
  * */
 public class mainApp {
     public static HashMap<String, TelecomService> availableServices = new HashMap<>();
@@ -154,7 +145,7 @@ public class mainApp {
                 availableServices.get("CC20"),
                 "Cloe",
                 "Williams",
-                "6955000031",
+                "6955000131",
                 LocalDate.now().plusDays(2),
                 MethodOfPayment.CASH));
 

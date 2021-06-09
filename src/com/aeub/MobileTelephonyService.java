@@ -1,4 +1,4 @@
-package com.aeub.services;
+package com.aeub;
 
 public abstract class MobileTelephonyService extends TelecomService {
     protected int freeSpeechMinutes;

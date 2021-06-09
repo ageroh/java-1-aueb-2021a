@@ -1,9 +1,4 @@
-package com.aeub.contracts;
-
-import com.aeub.services.MobileInternetService;
-import com.aeub.services.MobileTelephonyService;
-import com.aeub.services.TelecomService;
-import com.aeub.telecomapp.mainApp;
+package com.aeub;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

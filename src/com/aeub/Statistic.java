@@ -1,4 +1,4 @@
-package com.aeub.contracts;
+package com.aeub;
 
 public class Statistic {
     public static Statistic Empty = new Statistic();

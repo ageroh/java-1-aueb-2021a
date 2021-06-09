@@ -1,4 +1,4 @@
-package com.aeub.services;
+package com.aeub;
 
 public final class MobileInternetService extends TelecomService {
     private int freeMegabytesForData;

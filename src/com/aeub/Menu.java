@@ -1,10 +1,8 @@
-package com.aeub.telecomapp;
-
-import com.aeub.contracts.Statistic;
+package com.aeub;
 
 import java.util.Scanner;
 
-import static com.aeub.telecomapp.Utils.tryLoop;
+import static com.aeub.Utils.tryLoop;
 
 public class Menu {
     public static final int RENDER = 1;
@@ -94,7 +92,7 @@ public class Menu {
             System.out.println("  3 - Mobile Internet");
             String selection = in.nextLine();
             int selectionId = Integer.parseInt(selection);
-            if (selectionId <= 0 || selectionId > 2) {
+            if (selectionId <= 1 || selectionId > 3) {
                 throw new Exception();
             }
             return selectionId;

@@ -1,4 +1,4 @@
-package com.aeub.contracts;
+package com.aeub;
 
 public enum MethodOfPayment {
     CASH("CASH", 1),

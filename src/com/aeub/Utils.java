@@ -1,4 +1,4 @@
-package com.aeub.telecomapp;
+package com.aeub;
 
 public class Utils {
     public static <T extends Object> T tryLoop(Callable<T> tryScanFunc, String errorMessage) {

@@ -1,16 +1,10 @@
-package com.aeub.contracts;
-
-import com.aeub.services.CardContractService;
-import com.aeub.services.ContractService;
-import com.aeub.services.MobileInternetService;
-import com.aeub.services.TelecomService;
-import com.google.common.base.CharMatcher;
+package com.aeub;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import static com.aeub.telecomapp.Utils.tryLoop;
+import static com.aeub.Utils.tryLoop;
 
 public class ContractBuilder {
     public TelecomService service;
@@ -48,9 +42,9 @@ public class ContractBuilder {
     }
 
     private void validateString(String firstName) throws Exception {
-        if(firstName.length() < 3 ||
-            firstName.length() > 30 ||
-            CharMatcher.WHITESPACE.matchesAnyOf(firstName)){
+        if(firstName == null ||
+                firstName.length() < 3 ||
+                firstName.length() > 30 ) { //||  firstName.isBlank()){
             throw new Exception();
         }
     }
