@@ -1,4 +1,4 @@
-package com.aeub;
+package com.aueb;
 
 public abstract class TelecomService {
     protected String nameOfService;

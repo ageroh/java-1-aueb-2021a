@@ -1,8 +1,8 @@
-package com.aeub;
+package com.aueb;
 
 import java.util.Scanner;
 
-import static com.aeub.Utils.tryLoop;
+import static com.aueb.Utils.tryLoop;
 
 public class Menu {
     public static final int RENDER = 1;

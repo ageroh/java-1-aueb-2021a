@@ -1,4 +1,4 @@
-package com.aeub;
+package com.aueb;
 
 public enum MethodOfPayment {
     CASH("CASH", 1),

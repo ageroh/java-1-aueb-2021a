@@ -1,4 +1,4 @@
-package com.aeub;
+package com.aueb;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

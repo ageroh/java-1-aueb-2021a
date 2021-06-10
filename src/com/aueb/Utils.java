@@ -1,4 +1,4 @@
-package com.aeub;
+package com.aueb;
 
 public class Utils {
     public static <T extends Object> T tryLoop(Callable<T> tryScanFunc, String errorMessage) {

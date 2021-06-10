@@ -1,4 +1,4 @@
-package com.aeub;
+package com.aueb;
 
 public final class ContractService extends MobileTelephonyService {
     public ContractService() {

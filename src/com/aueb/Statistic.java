@@ -1,4 +1,4 @@
-package com.aeub;
+package com.aueb;
 
 public class Statistic {
     public static Statistic Empty = new Statistic();
